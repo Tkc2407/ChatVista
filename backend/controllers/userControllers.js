@@ -44,6 +44,7 @@ const authUser = asyncHandler(async (req, res) => {
 
     const user = await User.findOne({ email });
 
+    // matchedPassword is a method which is user defined in userSchema(in userModel folder)
     if (user && (await user.matchPassword(password))) {
         res.json({
             _id: user._id,
