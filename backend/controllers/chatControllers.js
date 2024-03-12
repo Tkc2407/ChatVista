@@ -20,7 +20,7 @@ const accessChat = asyncHandler(async (req, res) => {
         ],
     })
         .populate("users", "-password")
-        .populate("latestMessage.sender","name pic email");
+        .populate("latestMessage.sender", "name pic email");
 
     // isChat = await User.populate(isChat, {
     //     path: "latestMessage.sender",
@@ -39,8 +39,8 @@ const accessChat = asyncHandler(async (req, res) => {
         try {
             const createdChat = await Chat.create(chatData);
             const FullChat = await Chat.findOne({ _id: createdChat._id })
-            .populate("users","-password");
-            
+                .populate("users", "-password");
+
             res.status(200).json(FullChat);
         } catch (error) {
             res.status(400);
@@ -48,4 +48,26 @@ const accessChat = asyncHandler(async (req, res) => {
         }
     }
 });
-module.exports={accessChat}
+
+const fetchChat = asyncHandler(async (req, res) => {
+    try {
+        const result = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+            .populate("users", "-password")
+            .populate("groupAdmin", "-password")
+            .populate({
+                path: "latestMessage",
+                populate: {
+                    path: "sender",
+                    select: "name pic email"
+                }
+            })
+            .sort({ updatedAt: -1 });
+
+        res.send(result);
+    } catch (error) {
+        res.status(400);
+        throw new Error(error.message);
+    }
+});
+
+module.exports = { accessChat , fetchChat}
