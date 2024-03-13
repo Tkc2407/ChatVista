@@ -8,7 +8,7 @@ const { removeFromGroup } = require('../controllers/chatControllers');
 
 const router=(require('express')).Router();
 
-router.route("/").post(protect,accessChat);
+// router.route("/").post(protect,accessChat);
 router.route("/").get(protect,fetchChats);
 router.route("/group").post(protect,createGroupChat);
 router.route("/rename").put(protect,renameGroup);
