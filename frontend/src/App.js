@@ -7,12 +7,12 @@ function App() {
   return (
 
     <div className="App">
-      <Router>
+      {/* <Router> */}
         <Routes>
           <Route exact path="/" element={<Homepage/>} />
-          {/* <Route exact path="/chats" element={<Chatpage/>} /> */}
+          <Route exact path="/chats" element={<Chatpage/>} />
         </Routes>
-      </Router>
+      {/* </Router> */}
     </div>
 
   );
