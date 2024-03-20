@@ -82,7 +82,7 @@ const SideDrawer = () => {
             const {data}=await axios.post("/api/chat",{userId},config);
             setSelectedChat(data);
             setLoadingChat(false);
-            onClose();
+            // onClose();
         }
         catch(error){
             toast({
