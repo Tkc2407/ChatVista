@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import React, { useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider';
@@ -159,6 +159,7 @@ const SideDrawer = () => {
                                 />
                             ))
                         )}
+                        {loadingChat && <Spinner ml="auto" display={"flex"}/>}
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
