@@ -26,6 +26,10 @@ const SideDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
+    const logoutHandler = () => {
+        localStorage.removeItem("userInfo");
+        history("/");
+    };
 
 
     const handleSearch = async () => {
@@ -39,6 +43,7 @@ const SideDrawer = () => {
             });
             return;
         }
+
         try {
             setLoading(true);
 
@@ -48,7 +53,8 @@ const SideDrawer = () => {
                 },
             };
 
-            const {data} = await axios.get(`/api/user?search=${search}`, config);
+            const { data } = await axios.get(`/api/user?search=${search}`, config);
+
             setLoading(false);
             setSearchResult(data);
         } catch (error) {
@@ -63,28 +69,24 @@ const SideDrawer = () => {
         }
     };
 
-    const logoutHandler = () => {
-        localStorage.removeItem("userinfo");
-        history("/");
-    };
+    const accessChat = async (userId) => {
+        console.log(userId);
 
-    const accessChat= async (userId)=>{
-        try{
-            setLoading(true);
-
-            const config={
-                headers:{
-                    "Content-type":"application/json",
-                    Authorization:`Bearer ${user.token}`
+        try {
+            setLoadingChat(true);
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
             };
+            const { data } = await axios.post(`/api/chat`, { userId }, config);
 
-            const {data}=await axios.post("/api/chat",{userId},config);
+            if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
             setSelectedChat(data);
             setLoadingChat(false);
-            // onClose();
-        }
-        catch(error){
+            onClose();
+        } catch (error) {
             toast({
                 title: "Error fetching the chat",
                 description: error.message,
@@ -159,12 +161,12 @@ const SideDrawer = () => {
                                 />
                             ))
                         )}
-                        {loadingChat && <Spinner ml="auto" display={"flex"}/>}
+                        {loadingChat && <Spinner ml="auto" display={"flex"} />}
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
         </>
-    )
+    );
 }
 
-export default SideDrawer
+export default SideDrawer;
