@@ -62,13 +62,12 @@ const GroupChatModal = ({ children }) => {
 
     }
 
-    const handleGroup=(userToAdd)=>{
-        if(selectedUsers.includes(userToAdd))
-        {
+    const handleGroup = (userToAdd) => {
+        if (selectedUsers.includes(userToAdd)) {
 
         }
 
-        selectedUsers([...selectedUsers,userToAdd]);
+        selectedUsers([...selectedUsers, userToAdd]);
     }
 
     const { user, chats, setChats } = ChatState();
@@ -106,6 +105,12 @@ const GroupChatModal = ({ children }) => {
                                 onChange={(e) => handleSearch(e.target.value)}
                             />
                         </FormControl>
+
+                        {selectedUsers.map((u)=> {
+                            <UserBadgeItem key={user._id} handleFunction={()=>handleDelete(u)}
+                            />
+                        })}
+
                         {loading ? (
                             <div><Spinner /></div>
                         ) : (
