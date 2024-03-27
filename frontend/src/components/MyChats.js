@@ -9,7 +9,7 @@ import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 
-const MyChats = ({fetchAgain}) => {
+const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
@@ -27,7 +27,6 @@ const MyChats = ({fetchAgain}) => {
 
       const { data } = await axios.get("/api/chat", config);
       setChats(data);
-      // console.log(data);
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -43,6 +42,7 @@ const MyChats = ({fetchAgain}) => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
+    // eslint-disable-next-line
   }, [fetchAgain]);
 
   return (
@@ -53,7 +53,6 @@ const MyChats = ({fetchAgain}) => {
       p={3}
       bg="white"
       w={{ base: "100%", md: "31%" }}
-      h={"1000%"}
       borderRadius="lg"
       borderWidth="1px"
     >
@@ -63,19 +62,19 @@ const MyChats = ({fetchAgain}) => {
         fontSize={{ base: "28px", md: "30px" }}
         fontFamily="Work sans"
         display="flex"
-        w={"100%"}
+        w="100%"
         justifyContent="space-between"
         alignItems="center"
       >
         My Chats
         <GroupChatModal>
-        <Button
-          display="flex"
-          fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-          rightIcon={<AddIcon />}
-        >
-          New Group Chat
-        </Button>
+          <Button
+            display="flex"
+            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+            rightIcon={<AddIcon />}
+          >
+            New Group Chat
+          </Button>
         </GroupChatModal>
       </Box>
       <Box
@@ -84,12 +83,12 @@ const MyChats = ({fetchAgain}) => {
         p={3}
         bg="#F8F8F8"
         w="100%"
-        height="100%"
+        h="100%"
         borderRadius="lg"
         overflowY="hidden"
       >
         {chats ? (
-          <Stack overflowY={"scroll"}>
+          <Stack overflowY="scroll">
             {chats.map((chat) => (
               <Box
                 onClick={() => setSelectedChat(chat)}
