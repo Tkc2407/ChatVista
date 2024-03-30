@@ -26,7 +26,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [istyping, setIsTyping] = useState(false);
 
   const toast = useToast();
-  const { user, selectedChat, setSelectedChat } = ChatState();
+  const { user, selectedChat, setSelectedChat, notification,setNotification } = ChatState();
 
 
   const defaultOptions = {
@@ -37,7 +37,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  
+
 
   const fetchMessages = async () => {
     if (!selectedChat) return;
@@ -140,11 +140,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
-        // if (!notification.includes(newMessageRecieved)) {
-        //   setNotification([newMessageRecieved, ...notification]);
-        //   setFetchAgain(!fetchAgain);
+        if (!notification.includes(newMessageRecieved)) {
+          setNotification([newMessageRecieved, ...notification]);
+          setFetchAgain(!fetchAgain);
+        }
       }
-      // }
       else {
         setMessages([...messages, newMessageRecieved]);
       }

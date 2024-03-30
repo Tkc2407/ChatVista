@@ -4,24 +4,42 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
-// const cors=require("cors");
+const path = require("path");
 
 dotenv.config();
 connectDB() ;
 
 const app = express();
-app.use(express.json())
-
-// app.use(cors);
+// app.use(express.json())
 
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes);
 
+
+// --------------------------deployment------------------------------
+
+// const __dirname1 = path.resolve();
+
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname1, "/frontend/build")));
+
+//     app.get("*", (req, res) =>
+//         res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+//     );
+// } else {
+//     app.get("/", (req, res) => {
+//         res.send("API is running..");
+//     });
+// }
+
+// --------------------------deployment------------------------------
+
+
 const PORT = process.env.PORT;
 
-const server=app.listen(PORT || 80, () => {
+const server=app.listen(PORT , () => {
     console.log(`Backend server running on PORT ${PORT}...`.yellow.bold);
 });
 
@@ -43,7 +61,7 @@ io.on("connection", (socket) => {
     // Taking data from front end (userData)
     socket.on("setup", (userData) => {
         socket.join(userData._id);//Joins the socket to a room named after the userData._id. This effectively assigns the socket to a specific room identified by the user's ID. Rooms in Socket.IO are useful for organizing clients into groups to facilitate targeted communication.
-        console.log(userData._id)
+        // console.log(userData._id)
         socket.emit("connected");
     });
 
