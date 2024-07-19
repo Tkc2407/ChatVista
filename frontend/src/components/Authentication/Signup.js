@@ -18,7 +18,6 @@ const Signup = () => {
     const [confirmpassword, setConfirmpassword] = useState();
     const [password, setPassword] = useState();
     const [pic, setPic] = useState();
-    const [loading, setLoading] = useState(false);
     const [picLoading, setPicLoading] = useState(false);
 
     const submitHandler = async () => {
@@ -66,7 +65,7 @@ const Signup = () => {
             });
 
             localStorage.setItem("userinfo", JSON.stringify(data));
-            setLoading(false);
+            setPicLoading(false);
             history("/chats");
         } catch (error) {
             toast({
@@ -76,7 +75,7 @@ const Signup = () => {
                 isClosable: true,
                 position: "bottom",
             });
-            setLoading(false);
+            setPicLoading(false);
         }
     };
 

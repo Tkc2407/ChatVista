@@ -12,7 +12,6 @@ import {
     Input,
     FormControl,
     useToast,
-    Spinner,
     Box,
 } from '@chakra-ui/react'
 import { ChatState } from '../../Context/ChatProvider';
