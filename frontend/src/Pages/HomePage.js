@@ -23,7 +23,7 @@ function Homepage() {
   }, [history]);
 
   return (
-    <Container maxW="xl" centerContent>
+    <Container maxW="xl" centerContent mt="60px">
       <Box
         d="flex"
         justifyContent="center"
@@ -34,7 +34,7 @@ function Homepage() {
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="4xl" fontFamily="Work sans">
+        <Text fontSize="4xl" fontWeight="bold" fontFamily="Work sans" textAlign="center">
           ChatVista
         </Text>
       </Box>
