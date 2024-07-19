@@ -52,7 +52,7 @@ const io = require("socket.io")(server, {
     },
 });
 
-// module.exports = connectDB;.
+module.exports = connectDB;
 
 io.on("connection", (socket) => {
     console.log("Connected to socket.io");  //It listens for incoming connections from clients on the Socket.IO server
