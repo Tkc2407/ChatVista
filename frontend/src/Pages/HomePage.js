@@ -28,18 +28,18 @@ function Homepage() {
         d="flex"
         justifyContent="center"
         p={3}
-        bg="white"
+        bg="#E9EFEC"
         w="100%"
         m="40px 0 15px 0"
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="4xl" fontWeight="bold" fontFamily="Work sans" textAlign="center">
+        <Text fontSize="5xl" fontWeight="bold" fontFamily="ui-rounded" textAlign="center" mb={12}>
           ChatVista
         </Text>
-      </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
-        <Tabs isFitted variant="soft-rounded">
+      {/* </Box>
+      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px"> */}
+        <Tabs isFitted variant="soft-rounded" colorScheme='blue'>
           <TabList mb="1em">
             <Tab>Login</Tab>
             <Tab>Sign Up</Tab>

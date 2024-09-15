@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { VStack } from "@chakra-ui/layout";
+import { VStack, HStack } from "@chakra-ui/layout";
 import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
@@ -23,7 +23,7 @@ const Login = () => {
         setLoading(true);
         if (!email || !password) {
             toast({
-                title: "Please Fill all the Feilds",
+                title: "Please Fill all the Fields",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
@@ -58,13 +58,11 @@ const Login = () => {
             setLoading(false);
             history("/chats");
         } catch (error) {
-            // Check if the error response is available
             if (
                 error.response &&
                 error.response.data &&
                 error.response.data.message
             ) {
-                // Use the error response message if available
                 toast({
                     title: "Error Occurred!",
                     description: error.response.data.message,
@@ -74,7 +72,6 @@ const Login = () => {
                     position: "bottom",
                 });
             } else {
-                // If no specific error message is available, show a generic error message
                 toast({
                     title: "Error Occurred!",
                     description: "An error occurred while processing your request.",
@@ -90,7 +87,7 @@ const Login = () => {
     };
 
     return (
-        <VStack spacing="10px">
+        <VStack spacing="20px">
             <FormControl id="email" isRequired>
                 <FormLabel>Email Address</FormLabel>
                 <Input
@@ -116,26 +113,27 @@ const Login = () => {
                     </InputRightElement>
                 </InputGroup>
             </FormControl>
-            <Button
-                colorScheme="blue"
-                width="100%"
-                style={{ marginTop: 15 }}
-                onClick={submitHandler}
-                isLoading={loading}
-            >
-                Login
-            </Button>
-            <Button
-                variant="solid"
-                colorScheme="red"
-                width="100%"
-                onClick={() => {
-                    setEmail("guest@example.com");
-                    setPassword("123456");
-                }}
-            >
-                Get Guest User Credentials
-            </Button>
+            <HStack spacing="20px" width="100%" justifyContent="center">
+                <Button
+                    colorScheme="blackAlpha"
+                    width="50%"
+                    onClick={submitHandler}
+                    isLoading={loading}
+                >
+                    Login
+                </Button>
+                <Button
+                    variant="solid"
+                    colorScheme="teal"
+                    width="50%"
+                    onClick={() => {
+                        setEmail("guest@example.com");
+                        setPassword("123456");
+                    }}
+                >
+                    Login as Guest User
+                </Button>
+            </HStack>
         </VStack>
     );
 };
