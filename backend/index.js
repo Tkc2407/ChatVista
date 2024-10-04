@@ -44,7 +44,7 @@ const server=app.listen(PORT , () => {
 });
 
 
-const io = require("socket.io")(server, {
+const io = require("socket.io")(server, {    //0 server creation
     pingTimeout: 60000,
     cors: {
         origin: "http://localhost:3000",
@@ -55,17 +55,17 @@ const io = require("socket.io")(server, {
 module.exports = connectDB;
 
 io.on("connection", (socket) => {
-    console.log("Connected to socket.io");  //It listens for incoming connections from clients on the Socket.IO server
+    console.log("Connected to socket.io"); //2  //It listens for incoming connections from clients on the Socket.IO server
 
 
     // Taking data from front end (userData)
-    socket.on("setup", (userData) => {
+    socket.on("setup", (userData) => {   //4
         socket.join(userData._id);//Joins the socket to a room named after the userData._id. This effectively assigns the socket to a specific room identified by the user's ID. Rooms in Socket.IO are useful for organizing clients into groups to facilitate targeted communication.
         // console.log(userData._id)
-        socket.emit("connected");
+        socket.emit("connected");  //4.5
     });
 
-    socket.on("join chat", (room) => {
+    socket.on("join chat", (room) => {  //6
         socket.join(room);
         console.log("User Joined Room: " + room);
     });
@@ -73,15 +73,15 @@ io.on("connection", (socket) => {
     socket.on("typing", (room) => socket.in(room).emit("typing"));
     socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
-    socket.on("new message", (newMessageRecieved) => {
-        var chat = newMessageRecieved.chat;
+    socket.on("new message", (newMessageRecieved) => {   //8
+        var chat = newMessageRecieved.chat;  
 
         if (!chat.users) return console.log("chat.users not defined");
 
         chat.users.forEach((user) => {
             if (user._id == newMessageRecieved.sender._id) return;
 
-            socket.in(user._id).emit("message recieved", newMessageRecieved);
+            socket.in(user._id).emit("message recieved", newMessageRecieved);   //9
         });
     });
 

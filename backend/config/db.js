@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
 
-dotenv.config();
-console.log(process.env.MONGO_URI);
+dotenv.config({ path: '../.env' });
+// console.log(process.env.MONGO_URI);
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
-            useUnifiedTopology: true,
-            useNewUrlParser: true,
+            // useUnifiedTopology: true,
+            // useNewUrlParser: true,
         });
 
         console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);

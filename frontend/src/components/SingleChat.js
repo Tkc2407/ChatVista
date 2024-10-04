@@ -58,7 +58,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setMessages(data);
       setLoading(false);
 
-      socket.emit("join chat", selectedChat._id);
+      socket.emit("join chat", selectedChat._id);  //5
     }
     catch (error) {
       toast({
@@ -94,7 +94,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         // console.log(data);
 
-        socket.emit("new message", data);
+        socket.emit("new message", data);  //7
         setMessages([...messages, data]);
       }
       catch (error) {
@@ -111,9 +111,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT); //used to establish a connection from the client to the Socket.IO server
-    socket.emit("setup", user);
-    socket.on("connected", () => setSocketConnected(true));
+    socket = io(ENDPOINT);//1   //used to establish a connection from the client to the Socket.IO server
+    socket.emit("setup", user);  //3
+    socket.on("connected", () => setSocketConnected(true));  //4.5
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
 
@@ -131,7 +131,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    socket.on("message recieved", (newMessageRecieved) => {     //10
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
